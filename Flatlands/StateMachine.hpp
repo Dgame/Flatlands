@@ -3,7 +3,8 @@
 
 #include <map>
 #include <stack>
-#include "Screen.hpp"
+
+class Screen;
 
 enum class State : short {
 	None,
@@ -32,16 +33,8 @@ public:
 
 	void setState(State state);
 	void setPreviousState();
-
-	const State getCurrentState() const {
-		if (_stack.empty())
-			return State::None;
-		return _stack.top().state;
-	}
-
-	void execute() {
-		_stack.top().screen->execute(this);
-	}
+	const State getCurrentState() const;
+	void execute();
 };
 
 #endif

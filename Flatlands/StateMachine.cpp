@@ -1,4 +1,5 @@
 #include "StateMachine.hpp"
+#include "Screen.hpp"
 
 CurrentScreen::CurrentScreen(Screen* pscreen, State pstate) : screen(pscreen), state(pstate) {
 
@@ -18,6 +19,15 @@ void StateMachine::setPreviousState() {
 		_stack.pop();
 
 	_stack.top().screen->setup();
-
 	this->execute();
+}
+
+const State StateMachine::getCurrentState() const {
+	if (_stack.empty())
+		return State::None;
+	return _stack.top().state;
+}
+
+void StateMachine::execute() {
+	_stack.top().screen->execute(this);
 }
