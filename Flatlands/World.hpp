@@ -21,6 +21,8 @@ private:
 
 	Gravity _gravity = Gravity::Down;
 
+	void _abortForce();
+
 	void _detectGroundCollision();
 	void _detectBorderCollision();
 

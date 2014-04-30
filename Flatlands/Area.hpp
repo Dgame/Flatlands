@@ -17,34 +17,12 @@ enum Direction : short {
 };
 
 class Area : public sgl::Shape {
-protected:
-	int8 _moveCounter = -1;
-	Direction _dir = Direction::Left;
-
 public:
 	explicit Area(sgl::Shape::Type);
 
 	const sgl::Vertex& getVertex(Gravity g, Direction dir) const {
 		return sgl::Shape::vertices[RectIndices[g][dir]];
 	}
-
-	bool isMoving() const {
-		return _moveCounter != -1;
-	}
-
-	void setDir(Direction dir) {
-		if (!this->isMoving())
-			_dir = dir;
-	}
-
-	void reverseDir() {
-		_dir = (_dir == Direction::Left) ? Direction::Right : Direction::Left;
-	}
-
-	Direction getDir() const {
-		return _dir;
-	}
-
 };
 
 #endif

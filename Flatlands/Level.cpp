@@ -4,9 +4,9 @@ LevelManager::LevelManager() {
 	Level lvl = { /// Level #1
 		sgl::Vector2s(400, 0),
 		{
-			sgl::ShortRect(320, 96, 200, MinGroundHeight),
+			sgl::ShortRect(320, 128, 200, MinGroundHeight),
 			sgl::ShortRect(96, 256, 304, MinGroundHeight),
-			sgl::ShortRect(4, 400, 448, MinGroundHeight),
+			sgl::ShortRect(4, 400, 396, MinGroundHeight),
 		}
 	};
 	_levels.emplace_back(lvl);

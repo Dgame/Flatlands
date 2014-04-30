@@ -14,9 +14,9 @@ void Player::init(const sgl::Vector2s& position) {
 
 void Player::prepareRoll(Direction dir) {
 	if (this->isOnGround && !this->isJumping) {
-		Area::setDir(dir);
+		this->setDir(dir);
 
-		if (!this->isMoving())
+		if (!this->isRolling())
 			_moveCounter = 0;
 	}
 }

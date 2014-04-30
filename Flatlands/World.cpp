@@ -6,6 +6,12 @@ World::World(const sgl::Window& wnd) : Screen(wnd), _force(_gravity) {
 	this->setup();
 }
 
+void World::_abortForce() {
+	_force.abort();
+	_player.isOnGround = true;
+	_player.isJumping = false;
+}
+
 void World::_detectGroundCollision() {
 	bool collide = false;
 
@@ -22,9 +28,8 @@ void World::_detectGroundCollision() {
 	}
 
 	if (collide) {
-		printf("Kollision\n");
-		_force.abortForce();
-		_player.isOnGround = true;
+		//printf("Kollision\n");
+		_abortForce();
 	}
 }
 
@@ -43,7 +48,7 @@ void World::execute(StateMachine* sm) {
 	} else if (_player.isJumping) {
 		_force.executeJump(&_player, _gravity);
 		_detectGroundCollision();
-	} else if (_player.isOnGround && _player.isMoving()) {
+	} else if (_player.isOnGround && _player.isRolling()) {
 		_player.executeRoll(_gravity);
 		_player.isOnGround = false;
 		_detectGroundCollision();
@@ -55,8 +60,11 @@ void World::execute(StateMachine* sm) {
 
 	_wnd.draw(_player);
 
-	if (_player.getVertex(_gravity, Direction::Left).y > _wnd.height())
+	if (_player.getVertex(_gravity, Direction::Left).y > _wnd.height()) {
+		_force.abort();
+
 		sm->setState(State::Lose);
+	}
 }
 
 void World::revertGravity(Gravity too) {
@@ -64,6 +72,7 @@ void World::revertGravity(Gravity too) {
 		return;
 
 	_gravity = Force::ReverseGravity(_gravity);
+
 	_player.isOnGround = false;
 	_detectGroundCollision();
 }

@@ -13,6 +13,8 @@ private:
 	sgl::Texture _tex;
 	sgl::Sprite _lose;
 
+	uint32 _counter = 0;
+
 public:
 	explicit LoseScreen(const sgl::Window& wnd);
 	void execute(StateMachine* sm) override;

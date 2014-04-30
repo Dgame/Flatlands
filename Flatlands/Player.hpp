@@ -12,6 +12,10 @@
 class Ground;
 
 class Player final : public Area {
+private:
+	Direction _dir = Direction::Left;
+	int8 _moveCounter = -1;
+
 public:
 	bool isOnGround = false;
 	bool isJumping = false;
@@ -23,6 +27,23 @@ public:
 	void abortRoll() {
 		_moveCounter = -1;
 		sgl::Shape::setRotation(0);
+	}
+
+	bool isRolling() const {
+		return _moveCounter != -1;
+	}
+
+	void setDir(Direction dir) {
+		if (!this->isRolling())
+			_dir = dir;
+	}
+
+	void reverseDir() {
+		_dir = (_dir == Direction::Left) ? Direction::Right : Direction::Left;
+	}
+
+	Direction getDir() const {
+		return _dir;
 	}
 
 	void prepareRoll(Direction dir);
