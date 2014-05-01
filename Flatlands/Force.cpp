@@ -18,6 +18,7 @@ Force::Force(Gravity g) : tmpGravity(GravityForce[g]), tmpJump(JumpForce[g]) {
 void Force::executeGravity(Player* player, Gravity g) {
 	if (_gravityCount == -1)
 		this->tmpGravity = GravityForce[g];
+
 	_gravityCount++;
 
 	player->move(this->tmpGravity);
@@ -25,7 +26,16 @@ void Force::executeGravity(Player* player, Gravity g) {
 }
 
 void Force::executeJump(Player* player, Gravity g) {
+	if (_jumpCount == -1) {
+		this->tmpJump = JumpForce[g];
+		if (player->getDir() == Direction::Left)
+			this->tmpJump.x *= -1;
+	}
 
+	_jumpCount++;
+
+	player->move(this->tmpJump);
+	this->tmpJump += GravityForce[g];
 }
 
 Gravity Force::ReverseGravity(Gravity g) {

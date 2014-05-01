@@ -5,6 +5,6 @@ InitScreen::InitScreen(const sgl::Window& wnd) : Screen(wnd), _tex(sgl::Texture:
 
 }
 
-void InitScreen::execute(StateMachine* sm) {
+void InitScreen::execute(StateMachine*) {
 	_wnd.draw(_init);
 }

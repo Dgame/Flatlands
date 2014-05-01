@@ -54,37 +54,34 @@ bool Player::executeRoll(Gravity g) {
 	return false;
 }
 
-bool Player::collideWithGround(Gravity g, const Ground* ground, sgl::Vector2s* offset) const {
+Collision Player::collideWithGround(Gravity g, const Ground* ground, const sgl::Vector2s& offset) const {
 	const sgl::Vertex& pLeft = Area::getVertex(g, Direction::Left);
 	const sgl::Vector2f left = pLeft.getPosition();
-	const sgl::Vector2s left2(left.x + offset->x, left.y + offset->y);
+	const sgl::Vector2s left2(left.x + offset.x, left.y + offset.y);
 
 	const sgl::Vertex& pRight = Area::getVertex(g, Direction::Right);
 	const sgl::Vector2f right = pRight.getPosition();
-	const sgl::Vector2s right2(right.x + offset->x, right.y + offset->y);
+	const sgl::Vector2s right2(right.x + offset.x, right.y + offset.y);
 
 	if (ground->Rect.contains(left.x, left.y) || ground->Rect.contains(right.x, right.y)) {
 		/// Nur die Rechte oder Linke Ecke ist kollidiert
 		if (left.x >= ground->getRight() || right.x <= ground->Rect.x) {
 			std::cout << "Only edge!" << std::endl;
-			return false;
+			return Collision::No;
 		}
 
 		/// Komplett eingesunken
 		if (left.y > ground->Rect.y/* && right.y > g->Rect.y*/) {
 			std::cout << "Plugged!" << std::endl;
-			return false;
+			return Collision::No;
 		}
 
-		return true;
+		return Collision::Yes;
 	} else if (ground->Rect.contains(left2.x, left2.y) || ground->Rect.contains(right2.x, right2.y)) {
-		const sgl::Vertex& gLeft = ground->getVertex(Force::ReverseGravity(g), Direction::Left);
-		offset->y = gLeft.y - left.y;
+		/*const sgl::Vertex& gLeft = ground->getVertex(Force::ReverseGravity(g), Direction::Left);
+		offset->y = gLeft.y - left.y;*/
+		return Collision::Next;
 	}
 
-	return false;
-}
-
-bool Player::collideWithBorder(Gravity g, const sgl::Window& wnd, sgl::Vector2s* offset) const {
-	return false;
+	return Collision::No;
 }

@@ -12,29 +12,40 @@ void World::_abortForce() {
 	_player.isJumping = false;
 }
 
-void World::_detectGroundCollision() {
-	bool collide = false;
+void World::_handleGroundCollision() {
+	if (!_player.isOnGround) {
+		const Ground* gp = nullptr;
 
-	if (_player.getVertex(_gravity, Direction::Left).y <= 0) {
-		collide = true;
-	} else {
-		for (const std::unique_ptr<Ground>& g : _grounds) {
-			if (_player.collideWithGround(_gravity, g.get(), &_force.tmpGravity)) {
-				collide = true;
-
-				break;
-			}
+		if (_detectGroundCollision(&gp))
+			_abortForce();
+		else if (gp != nullptr) {
+			const sgl::Vertex& gLeft = gp->getVertex(Force::ReverseGravity(_gravity), Direction::Left);
+			_getPlayerOffset()->y = gLeft.y - _player.getVertex(_gravity, Direction::Left).y;
 		}
-	}
-
-	if (collide) {
-		//printf("Kollision\n");
-		_abortForce();
 	}
 }
 
-void World::_detectBorderCollision() {
+bool World::_detectGroundCollision(const Ground** gp) const {
+	const sgl::Vector2s& offset = _player.isJumping ? _force.tmpJump : _force.tmpGravity;
 
+	if (_player.getVertex(_gravity, Direction::Left).y <= 0)
+		return true;
+
+	for (const std::unique_ptr<Ground>& g : _grounds) {
+		Collision col = _player.collideWithGround(_gravity, g.get(), offset);
+		if (col == Collision::Yes)
+			return true;
+		else if (col == Collision::Next)
+			*gp = g.get();
+	}
+
+	return false;
+}
+
+bool World::_detectBorderCollision() const {
+	const sgl::Vertex& v = _player.getVertex(_gravity, _player.getDir());
+
+	return v.x <= 0 || v.x >= _wnd.width();
 }
 
 void World::setup() {
@@ -42,17 +53,25 @@ void World::setup() {
 }
 
 void World::execute(StateMachine* sm) {
-	if (!_player.isOnGround) {
+	if (!_player.isOnGround && !_player.isJumping) {
 		_force.executeGravity(&_player, _gravity);
-		_detectGroundCollision();
 	} else if (_player.isJumping) {
 		_force.executeJump(&_player, _gravity);
-		_detectGroundCollision();
-	} else if (_player.isOnGround && _player.isRolling()) {
-		_player.executeRoll(_gravity);
 		_player.isOnGround = false;
-		_detectGroundCollision();
+
+		if (_detectBorderCollision())
+			_force.tmpJump.x = 0;
+	} else if (_player.isOnGround && _player.isRolling()) {
+		if (_detectBorderCollision())
+			_player.abortRoll();
+		else
+			_player.executeRoll(_gravity);
+
+		_player.isOnGround = false;
 	}
+
+	if (!_player.isOnGround)
+		_handleGroundCollision();
 
 	for (const std::unique_ptr<Ground>& g : _grounds) {
 		_wnd.draw(*g);
@@ -74,5 +93,5 @@ void World::revertGravity(Gravity too) {
 	_gravity = Force::ReverseGravity(_gravity);
 
 	_player.isOnGround = false;
-	_detectGroundCollision();
+	_handleGroundCollision();
 }

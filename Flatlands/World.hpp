@@ -21,10 +21,15 @@ private:
 
 	Gravity _gravity = Gravity::Down;
 
-	void _abortForce();
+	sgl::Vector2s* _getPlayerOffset() {
+		return _player.isJumping ? &_force.tmpJump : &_force.tmpGravity;
+	}
 
-	void _detectGroundCollision();
-	void _detectBorderCollision();
+	void _abortForce();
+	void _handleGroundCollision();
+	bool _detectGroundCollision(const Ground** gp) const;
+	bool _detectTopCollision() const;
+	bool _detectBorderCollision() const;
 
 public:
 	explicit World(const sgl::Window& wnd);

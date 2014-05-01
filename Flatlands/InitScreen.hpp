@@ -14,7 +14,7 @@ private:
 
 public:
 	explicit InitScreen(const sgl::Window& wnd);
-	void execute(StateMachine* sm) override;
+	void execute(StateMachine*) override;
 };
 
 #endif

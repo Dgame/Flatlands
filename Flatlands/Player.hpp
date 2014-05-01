@@ -11,6 +11,12 @@
 
 class Ground;
 
+enum class Collision : short {
+	No,
+	Yes,
+	Next
+};
+
 class Player final : public Area {
 private:
 	Direction _dir = Direction::Left;
@@ -48,8 +54,7 @@ public:
 
 	void prepareRoll(Direction dir);
 	bool executeRoll(Gravity g);
-	bool collideWithGround(Gravity g, const Ground* ground, sgl::Vector2s* offset) const;
-	bool collideWithBorder(Gravity g, const sgl::Window& wnd, sgl::Vector2s* offset) const;
+	Collision collideWithGround(Gravity g, const Ground* ground, const sgl::Vector2s& offset) const;
 };
 
 #endif
