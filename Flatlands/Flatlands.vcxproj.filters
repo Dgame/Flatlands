@@ -45,6 +45,12 @@
     <ClInclude Include="LoseScreen.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="WinScreen.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteScreen.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
@@ -78,6 +84,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="LoseScreen.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScreen.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteScreen.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

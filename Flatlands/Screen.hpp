@@ -16,6 +16,10 @@ public:
 	virtual void setup() {
 
 	}
+
+	virtual void leave() {
+
+	}
 };
 
 #endif

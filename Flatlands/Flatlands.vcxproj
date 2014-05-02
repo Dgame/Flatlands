@@ -92,7 +92,9 @@
     <ClInclude Include="LoseScreen.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Screen.hpp" />
+    <ClInclude Include="SpriteScreen.hpp" />
     <ClInclude Include="StateMachine.hpp" />
+    <ClInclude Include="WinScreen.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -105,7 +107,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="SpriteScreen.cpp" />
     <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="WinScreen.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

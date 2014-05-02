@@ -67,19 +67,18 @@ Collision Player::collideWithGround(Gravity g, const Ground* ground, const sgl::
 		/// Nur die Rechte oder Linke Ecke ist kollidiert
 		if (left.x >= ground->getRight() || right.x <= ground->Rect.x) {
 			std::cout << "Only edge!" << std::endl;
-			return Collision::No;
+			return Collision::Edge;
 		}
 
 		/// Komplett eingesunken
 		if (left.y > ground->Rect.y/* && right.y > g->Rect.y*/) {
 			std::cout << "Plugged!" << std::endl;
-			return Collision::No;
+			return Collision::Plugged;
 		}
 
 		return Collision::Yes;
 	} else if (ground->Rect.contains(left2.x, left2.y) || ground->Rect.contains(right2.x, right2.y)) {
-		/*const sgl::Vertex& gLeft = ground->getVertex(Force::ReverseGravity(g), Direction::Left);
-		offset->y = gLeft.y - left.y;*/
+		std::cout << "Next time" << std::endl;
 		return Collision::Next;
 	}
 

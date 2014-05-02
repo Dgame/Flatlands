@@ -33,7 +33,14 @@ public:
 
 	void setState(State state);
 	void setPreviousState();
-	const State getCurrentState() const;
+
+	const State getCurrentState() const {
+		if (_stack.empty())
+			return State::None;
+
+		return _stack.top().state;
+	}
+
 	void execute();
 };
 

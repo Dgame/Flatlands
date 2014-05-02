@@ -2,19 +2,13 @@
 #define INIT_SCREEN_HPP
 
 #include <memory>
-#include <SGL\Graphic\Sprite.hpp>
-#include "Screen.hpp"
+#include "SpriteScreen.hpp"
 
 class StateMachine;
 
-class InitScreen : public Screen {
-private:
-	sgl::Texture _tex;
-	sgl::Sprite _init;
-
+class InitScreen : public SpriteScreen {
 public:
 	explicit InitScreen(const sgl::Window& wnd);
-	void execute(StateMachine*) override;
 };
 
 #endif

@@ -27,7 +27,7 @@ private:
 
 	void _abortForce();
 	void _handleGroundCollision();
-	bool _detectGroundCollision(const Ground** gp) const;
+	bool _detectGroundCollision(const Ground** gp, Collision* colp) const;
 	bool _detectBorderCollision() const;
 
 public:

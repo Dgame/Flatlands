@@ -2,17 +2,13 @@
 #define LOSE_SCREEN_HPP
 
 #include <memory>
-#include <SGL\Graphic\Sprite.hpp>
 #include <SGL\System\Clock.hpp>
-#include "Screen.hpp"
+#include "SpriteScreen.hpp"
 
 class StateMachine;
 
-class LoseScreen : public Screen {
+class LoseScreen : public SpriteScreen {
 private:
-	sgl::Texture _tex;
-	sgl::Sprite _lose;
-
 	uint32 _counter = 0;
 
 public:

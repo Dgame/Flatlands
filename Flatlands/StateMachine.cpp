@@ -15,17 +15,13 @@ void StateMachine::setState(State state) {
 }
 
 void StateMachine::setPreviousState() {
-	if (!_stack.empty())
+	if (!_stack.empty()) {
+		_stack.top().screen->leave();
 		_stack.pop();
+	}
 
 	_stack.top().screen->setup();
-	this->execute();
-}
-
-const State StateMachine::getCurrentState() const {
-	if (_stack.empty())
-		return State::None;
-	return _stack.top().state;
+	//this->execute();
 }
 
 void StateMachine::execute() {

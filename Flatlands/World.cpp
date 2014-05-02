@@ -15,17 +15,22 @@ void World::_abortForce() {
 void World::_handleGroundCollision() {
 	if (!_player.isOnGround) {
 		const Ground* gp = nullptr;
+		Collision col = Collision::No;
 
-		if (_detectGroundCollision(&gp))
-			_abortForce();
-		else if (gp != nullptr) {
+		if (_detectGroundCollision(&gp, &col)) {
+			if (col == Collision::Edge && _player.isJumping) {
+				_abortForce();
+				_player.isOnGround = false;
+			} else if (col == Collision::Yes)
+				_abortForce();
+		} else if (gp != nullptr) {
 			const sgl::Vertex& gLeft = gp->getVertex(Force::ReverseGravity(_gravity), Direction::Left);
 			_getPlayerOffset()->y = gLeft.y - _player.getVertex(_gravity, Direction::Left).y;
 		}
 	}
 }
 
-bool World::_detectGroundCollision(const Ground** gp) const {
+bool World::_detectGroundCollision(const Ground** gp, Collision* colp) const {
 	const sgl::Vector2s& offset = _player.isJumping ? _force.tmpJump : _force.tmpGravity;
 
 	if (_player.getVertex(_gravity, Direction::Left).y <= 0)
@@ -33,10 +38,14 @@ bool World::_detectGroundCollision(const Ground** gp) const {
 
 	for (const std::unique_ptr<Ground>& g : _grounds) {
 		Collision col = _player.collideWithGround(_gravity, g.get(), offset);
-		if (col == Collision::Yes)
-			return true;
-		else if (col == Collision::Next)
+
+		if (colp != nullptr)
+			*colp = col;
+
+		if (col == Collision::Next)
 			*gp = g.get();
+		else if (col != Collision::No)
+			return true;
 	}
 
 	return false;

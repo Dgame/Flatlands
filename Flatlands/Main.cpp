@@ -1,20 +1,23 @@
 #include <SGL\Window\Event.hpp>
 #include "InitScreen.hpp"
 #include "LoseScreen.hpp"
+#include "WinScreen.hpp"
 #include "World.hpp"
 #include "StateMachine.hpp"
 
 int main() {
-	sgl::Window wnd(512, 512, "Flatland");
+	sgl::Window wnd(600, 500, "Flatland");
 	wnd.framerateLimit = 10;
 
 	InitScreen init(wnd);
 	LoseScreen lose(wnd);
+	WinScreen won(wnd);
 	World world(wnd);
 
 	StateMachine sm;
 	sm.registerState(State::Init, &init);
 	sm.registerState(State::Lose, &lose);
+	sm.registerState(State::Won, &won);
 	sm.registerState(State::Game, &world);
 	sm.setState(State::Init);
 
