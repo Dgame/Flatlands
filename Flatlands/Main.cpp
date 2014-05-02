@@ -35,9 +35,15 @@ int main() {
 						wnd.close();
 					else if (sm.getCurrentState() == State::Game) {
 						if (event.keyboard.key == sgl::Keyboard::Code::Left) {
-							world.getPlayer()->prepareRoll(Direction::Left);
+							if (event.keyboard.mod == sgl::Keyboard::Mod::RCtrl)
+								world.getPlayer()->setDir(Direction::Left);
+							else
+								world.getPlayer()->prepareRoll(Direction::Left);
 						} else if (event.keyboard.key == sgl::Keyboard::Code::Right) {
-							world.getPlayer()->prepareRoll(Direction::Right);
+							if (event.keyboard.mod == sgl::Keyboard::Mod::RCtrl)
+								world.getPlayer()->setDir(Direction::Right);
+							else
+								world.getPlayer()->prepareRoll(Direction::Right);
 						} else if (event.keyboard.key == sgl::Keyboard::Code::Up)
 							world.revertGravity(Gravity::Up);
 						else if (event.keyboard.key == sgl::Keyboard::Code::Down)
