@@ -13,6 +13,9 @@ void World::_abortForce() {
 
 void World::_handleGroundCollision() {
 	if (!_player.isOnGround) {
+		if (_player.getVertex(_gravity, Direction::Left).y <= 0)
+			return _abortForce();
+
 		const Ground* gp = nullptr;
 		Collision col = Collision::No;
 
@@ -31,12 +34,6 @@ void World::_handleGroundCollision() {
 
 bool World::_detectGroundCollision(const Ground** gp, Collision* colp) const {
 	const sgl::Vector2s& offset = _player.isJumping ? _force.tmpJump : _force.tmpGravity;
-
-	if (_player.getVertex(_gravity, Direction::Left).y <= 0) {
-		*colp = Collision::Yes;
-
-		return true;
-	}
 
 	for (const std::unique_ptr<Ground>& g : _grounds) {
 		Collision col = _player.collideWithGround(_gravity, g.get(), offset);
