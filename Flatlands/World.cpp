@@ -3,7 +3,6 @@
 
 World::World(const sgl::Window& wnd) : Screen(wnd), _force(_gravity) {
 	_level.loadNextLevel(_grounds);
-	this->setup();
 }
 
 void World::_abortForce() {
@@ -33,14 +32,16 @@ void World::_handleGroundCollision() {
 bool World::_detectGroundCollision(const Ground** gp, Collision* colp) const {
 	const sgl::Vector2s& offset = _player.isJumping ? _force.tmpJump : _force.tmpGravity;
 
-	if (_player.getVertex(_gravity, Direction::Left).y <= 0)
+	if (_player.getVertex(_gravity, Direction::Left).y <= 0) {
+		*colp = Collision::Yes;
+
 		return true;
+	}
 
 	for (const std::unique_ptr<Ground>& g : _grounds) {
 		Collision col = _player.collideWithGround(_gravity, g.get(), offset);
 
-		if (colp != nullptr)
-			*colp = col;
+		*colp = col;
 
 		if (col == Collision::Next)
 			*gp = g.get();
@@ -57,7 +58,7 @@ bool World::_detectBorderCollision() const {
 	return v.x <= 0 || v.x >= _wnd.width();
 }
 
-void World::setup() {
+void World::setup(TransitionManager*) {
 	_player.init(_level.getCurrentLevel().startPosition);
 }
 

@@ -9,8 +9,6 @@
 #include "Force.hpp"
 #include "Level.hpp"
 
-class StateMachine;
-
 class World : public Screen {
 private:
 	std::vector<std::unique_ptr<Ground>> _grounds;
@@ -32,7 +30,7 @@ private:
 
 public:
 	explicit World(const sgl::Window& wnd);
-	void setup() override;
+	void setup(TransitionManager*) override;
 	void execute(StateMachine* sm) override;
 
 	void revertGravity(Gravity current);

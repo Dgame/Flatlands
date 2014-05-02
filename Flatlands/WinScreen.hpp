@@ -4,8 +4,6 @@
 #include <memory>
 #include "SpriteScreen.hpp"
 
-class StateMachine;
-
 class WinScreen : public SpriteScreen {
 public:
 	explicit WinScreen(const sgl::Window& wnd);

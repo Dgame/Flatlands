@@ -5,8 +5,6 @@
 #include <SGL\System\Clock.hpp>
 #include "SpriteScreen.hpp"
 
-class StateMachine;
-
 class LoseScreen : public SpriteScreen {
 private:
 	uint32 _counter = 0;

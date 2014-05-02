@@ -13,24 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\Screen">
+      <UniqueIdentifier>{e3bb4b2e-8d1d-42d4-a3f0-c156f8e086fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Transition">
+      <UniqueIdentifier>{03c1e751-158e-4939-83a6-8d36a8618d47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Screen">
+      <UniqueIdentifier>{9009a684-0ba7-4fe3-adf8-bae5c1d0f434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Transition">
+      <UniqueIdentifier>{946d4aae-3194-4b16-9d83-980d6372c540}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StateMachine.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Screen.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="InitScreen.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Ground.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Player.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="World.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Force.hpp">
@@ -42,24 +45,36 @@
     <ClInclude Include="Level.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="LoseScreen.hpp">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="InitScreen.hpp">
+      <Filter>Headerdateien\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="WinScreen.hpp">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="LoseScreen.hpp">
+      <Filter>Headerdateien\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.hpp">
+      <Filter>Headerdateien\Screen</Filter>
     </ClInclude>
     <ClInclude Include="SpriteScreen.hpp">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScreen.hpp">
+      <Filter>Headerdateien\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="World.hpp">
+      <Filter>Headerdateien\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="TransitionManager.hpp">
+      <Filter>Headerdateien\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="Transition.hpp">
+      <Filter>Headerdateien\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="InitTransition.hpp">
+      <Filter>Headerdateien\Transition</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Screen.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="InitScreen.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -71,9 +86,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Force.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -83,14 +95,32 @@
     <ClCompile Include="Level.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="LoseScreen.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="InitScreen.cpp">
+      <Filter>Quelldateien\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="WinScreen.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="LoseScreen.cpp">
+      <Filter>Quelldateien\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Quelldateien\Screen</Filter>
     </ClCompile>
     <ClCompile Include="SpriteScreen.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScreen.cpp">
+      <Filter>Quelldateien\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Quelldateien\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="InitTransition.cpp">
+      <Filter>Quelldateien\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="Transition.cpp">
+      <Filter>Quelldateien\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="TransitionManager.cpp">
+      <Filter>Quelldateien\Transition</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 
 #include <map>
 #include <stack>
+#include "TransitionManager.hpp"
 
 class Screen;
 
@@ -23,6 +24,8 @@ struct CurrentScreen {
 
 class StateMachine final {
 private:
+	TransitionManager _transitions;
+
 	std::map<State, Screen*> _screens;
 	std::stack<CurrentScreen> _stack;
 

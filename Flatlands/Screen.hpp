@@ -3,6 +3,7 @@
 
 #include <SGL\Window\Window.hpp>
 
+class TransitionManager;
 class StateMachine;
 
 class Screen {
@@ -13,11 +14,11 @@ public:
 	explicit Screen(const sgl::Window& wnd);
 	virtual void execute(StateMachine* sm) = 0;
 
-	virtual void setup() {
+	virtual void setup(TransitionManager*) {
 
 	}
 
-	virtual void leave() {
+	virtual void leave(TransitionManager*) {
 
 	}
 };

@@ -4,11 +4,11 @@
 #include <memory>
 #include "SpriteScreen.hpp"
 
-class StateMachine;
-
 class InitScreen : public SpriteScreen {
 public:
 	explicit InitScreen(const sgl::Window& wnd);
+
+	void leave(TransitionManager* tm) override;
 };
 
 #endif
