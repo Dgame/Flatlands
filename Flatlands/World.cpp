@@ -11,9 +11,23 @@ void World::_abortForce() {
 	_player.isJumping = false;
 }
 
+bool World::_handleBorderCollision() {
+	if (_gravity != Gravity::Up || _player.isOnGround)
+		return false;
+
+	const sgl::Vertex& vp = _player.getVertex(_gravity, Direction::Left);
+
+	if (vp.y <= 0)
+		return true;
+	else if ((vp.y + _getPlayerOffset()->y) <= 0)
+		_getPlayerOffset()->y = 0 - vp.y;
+
+	return false;
+}
+
 void World::_handleGroundCollision() {
 	if (!_player.isOnGround) {
-		if (_player.getVertex(_gravity, Direction::Left).y <= 0)
+		if (_handleBorderCollision())
 			return _abortForce();
 
 		const Ground* gp = nullptr;
