@@ -56,25 +56,19 @@ bool Player::executeRoll(Gravity g) {
 
 Collision Player::collideWithGround(Gravity g, const Ground* ground, const sgl::Vector2s& offset) const {
 	const sgl::Vertex& pLeft = Area::getVertex(g, Direction::Left);
-	const sgl::Vector2f left = pLeft.getPosition();
-	const sgl::Vector2s left2(left.x + offset.x, left.y + offset.y);
-
 	const sgl::Vertex& pRight = Area::getVertex(g, Direction::Right);
-	const sgl::Vector2f right = pRight.getPosition();
-	const sgl::Vector2s right2(right.x + offset.x, right.y + offset.y);
 
-	if (ground->Rect.contains(left.x, left.y) || ground->Rect.contains(right.x, right.y)) {
-		/// Nur die Rechte oder Linke Ecke ist kollidiert
-		if (left.x >= ground->getRight() || right.x <= ground->Rect.x) {
-			//std::cout << "Only edge!" << std::endl;
+	if (ground->Rect.contains(pLeft.x, pLeft.y) || ground->Rect.contains(pRight.x, pRight.y)) {
+		if (pLeft.x >= ground->getRight() || pRight.x <= ground->Rect.x)
 			return Collision::Edge;
-		}
 
 		return Collision::Yes;
-	} else if (ground->Rect.contains(left2.x, left2.y) || ground->Rect.contains(right2.x, right2.y)) {
-		//std::cout << "Next time" << std::endl;
-		return Collision::Next;
+	} else {
+		for (uint16 i = 8; i < offset.y; i += 8) {
+			if (ground->Rect.contains(pLeft.x, pLeft.y + i) || ground->Rect.contains(pRight.x, pRight.y + i))
+				return Collision::Next;
+		}
 	}
-
+	
 	return Collision::No;
 }

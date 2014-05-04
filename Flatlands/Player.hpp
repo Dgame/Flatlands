@@ -15,8 +15,7 @@ enum class Collision : short {
 	No,
 	Yes,
 	Next,
-	Edge,
-	Plugged
+	Edge
 };
 
 class Player final : public Area {

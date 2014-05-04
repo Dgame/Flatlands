@@ -4,7 +4,7 @@
 #include <SGL\Math\Rect.hpp>
 #include "Area.hpp"
 
-#define MinGroundHeight 64
+#define MinGroundHeight 16
 
 class Ground final : public Area {
 private:
