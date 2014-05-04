@@ -12,7 +12,14 @@ protected:
 
 public:
 	explicit Screen(const sgl::Window& wnd);
-	virtual void execute(StateMachine* sm) = 0;
+
+	virtual void execute(StateMachine*) {
+
+	}
+
+	virtual void render() const {
+
+	}
 
 	virtual void setup(TransitionManager*) {
 

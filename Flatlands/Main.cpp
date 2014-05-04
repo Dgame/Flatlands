@@ -52,7 +52,7 @@ int main() {
 						else if (event.keyboard.key == sgl::Keyboard::Code::Down)
 							world.revertGravity(Gravity::Down);
 						else if (event.keyboard.key == sgl::Keyboard::Code::Space)
-							world.getPlayer()->isJumping = true;
+							world.getPlayer()->prepareJump();
 						else if (event.keyboard.key == sgl::Keyboard::Code::Pause)
 							sm.setState(State::Pause);
 					} else if (sm.getCurrentState() == State::Pause)

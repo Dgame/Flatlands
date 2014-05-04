@@ -70,14 +70,6 @@ Collision Player::collideWithGround(Gravity g, const Ground* ground, const sgl::
 			return Collision::Edge;
 		}
 
-		/*
-		/// Komplett eingesunken
-		if (left.y > ground->Rect.y && right.y > ground->Rect.y) {
-			std::cout << "Plugged!" << std::endl;
-			return Collision::Plugged;
-		}
-		*/
-
 		return Collision::Yes;
 	} else if (ground->Rect.contains(left2.x, left2.y) || ground->Rect.contains(right2.x, right2.y)) {
 		//std::cout << "Next time" << std::endl;

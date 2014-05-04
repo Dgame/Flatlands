@@ -5,16 +5,14 @@
 
 class Player;
 class Ground;
-class Area;
 
 class LevelTransition : public Transition {
 private:
 	Player* _player;
-	const Ground* _ground;
-	Area* _area;
+	Ground* _ground;
 
 public:
-	explicit LevelTransition(const sgl::Window* wnd, Area* area, Player* player, const Ground* ground);
+	explicit LevelTransition(const sgl::Window* wnd, Player* player, Ground* ground);
 	bool execute() override;
 };
 

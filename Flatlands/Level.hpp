@@ -13,7 +13,6 @@ struct LevelGround {
 
 struct Level {
 	sgl::Vector2s startPosition;
-	sgl::ShortRect target;
 	std::vector<LevelGround> grounds;
 };
 

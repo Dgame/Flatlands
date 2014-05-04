@@ -32,6 +32,14 @@ public:
 
 	void init(const sgl::Vector2s& position);
 
+	void prepareJump() {
+		if (this->isOnGround && !this->isJumping)
+			this->isJumping = true;
+	}
+
+	void prepareRoll(Direction dir);
+	bool executeRoll(Gravity g);
+
 	void abortRoll() {
 		_moveCounter = -1;
 		sgl::Shape::setRotation(0);
@@ -54,8 +62,6 @@ public:
 		return _dir;
 	}
 
-	void prepareRoll(Direction dir);
-	bool executeRoll(Gravity g);
 	Collision collideWithGround(Gravity g, const Ground* ground, const sgl::Vector2s& offset) const;
 };
 

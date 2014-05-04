@@ -10,5 +10,5 @@ bool InitTransition::execute() {
 	_sprite->position.move(0, 50);
 	_wnd->draw(*_sprite);
 
-	return _sprite->position.y >= _wnd->height();
+	return _sprite->position.y > _wnd->height();
 }

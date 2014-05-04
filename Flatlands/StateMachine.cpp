@@ -36,13 +36,15 @@ void StateMachine::resetPreviousState() {
 }
 
 void StateMachine::execute() {
-	if (!_transitions.isRunning()) {
-		Screen* screen = _stack.top().screen;
+	Screen* screen = _stack.top().screen;
 
+	if (!_transitions.isRunning())
 		screen->review(&_transitions);
 
-		if (!_transitions.isRunning())
-			screen->execute(this);
-	} else
+	if (!_transitions.isRunning())
+		screen->execute(this);
+	else
 		_transitions.execute();
+
+	screen->render();
 }

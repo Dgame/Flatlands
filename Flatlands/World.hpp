@@ -26,23 +26,24 @@ private:
 
 	Gravity _gravity = Gravity::Down;
 	Won _won = Won::No;
-	const Ground* _gtarget = nullptr;
+	Ground* _gtarget = nullptr;
 
 	sgl::Vector2s* _getPlayerOffset() {
 		return _player.isJumping ? &_force.tmpJump : &_force.tmpGravity;
 	}
 
-	void _checkWin(const Ground* g);
+	void _checkWin(Ground* g);
 	void _abortForce();
 	bool _handleBorderCollision();
 	void _handleGroundCollision();
-	bool _detectGroundCollision(const Ground** gp, Collision* colp) const;
+	bool _detectGroundCollision(Ground** gp, Collision* colp) const;
 	bool _detectBorderCollision() const;
 
 public:
 	explicit World(const sgl::Window& wnd);
 	void setup(TransitionManager*) override;
 	void review(TransitionManager* tm) override;
+	void render() const override;
 	void execute(StateMachine* sm) override;
 
 	void revertGravity(Gravity current);

@@ -12,7 +12,7 @@ protected:
 public:
 	explicit SpriteScreen(const sgl::Window& wnd, const std::string& filename);
 
-	virtual void execute(StateMachine*) override {
+	virtual void render() const override {
 		_wnd.draw(_sprite);
 	}
 };

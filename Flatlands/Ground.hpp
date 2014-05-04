@@ -7,18 +7,16 @@
 #define MinGroundHeight 64
 
 class Ground final : public Area {
-protected:
-	virtual void draw(const sgl::Window& wnd) const override;
+private:
+	bool _isTarget;
 
 public:
 	const sgl::ShortRect Rect;
-	const sgl::ShortRect* targetRect = nullptr;
-	std::unique_ptr<Area> target;
 
-	explicit Ground(const sgl::ShortRect& rect);
+	explicit Ground(const sgl::ShortRect& rect, bool isTarget);
 
 	bool isTarget() const {
-		return this->target.get() != nullptr;
+		return _isTarget;
 	}
 
 	uint16 getRight() const {
