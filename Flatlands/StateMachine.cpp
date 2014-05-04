@@ -14,12 +14,17 @@ void StateMachine::setState(State state) {
 		if (!_stack.empty())
 			_stack.top().screen->leave(&_transitions);
 
-		it->second->setup(&_transitions);
 		_stack.push(CurrentScreen(it->second, state));
+
+		this->setupCurrentState();
 	}
 }
 
-void StateMachine::resetState() {
+void StateMachine::setupCurrentState() {
+	_stack.top().screen->setup(&_transitions);
+}
+
+void StateMachine::resetCurrentState() {
 	_stack.top().screen->reset(&_transitions);
 }
 
@@ -32,7 +37,7 @@ void StateMachine::popCurrentState() {
 
 void StateMachine::resetPreviousState() {
 	this->popCurrentState();
-	this->resetState();
+	this->resetCurrentState();
 }
 
 void StateMachine::execute() {

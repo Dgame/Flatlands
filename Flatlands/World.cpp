@@ -106,7 +106,7 @@ void World::review(TransitionManager* tm) {
 
 void World::execute(StateMachine* sm) {
 	if (_won == Won::Yes)
-		return sm->resetState();
+		return sm->setupCurrentState();
 	else if (_won == Won::All)
 		return sm->setState(State::Won);
 

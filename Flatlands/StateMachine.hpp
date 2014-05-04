@@ -37,7 +37,8 @@ public:
 
 	void setState(State state);
 	void popCurrentState();
-	void resetState();
+	void setupCurrentState();
+	void resetCurrentState();
 	void resetPreviousState();
 
 	const State getCurrentState() const {
