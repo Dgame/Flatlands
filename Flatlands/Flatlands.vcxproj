@@ -90,7 +90,9 @@
     <ClInclude Include="InitScreen.hpp" />
     <ClInclude Include="InitTransition.hpp" />
     <ClInclude Include="Level.hpp" />
+    <ClInclude Include="LevelTransition.hpp" />
     <ClInclude Include="LoseScreen.hpp" />
+    <ClInclude Include="PauseScreen.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Screen.hpp" />
     <ClInclude Include="SpriteScreen.hpp" />
@@ -107,8 +109,10 @@
     <ClCompile Include="InitScreen.cpp" />
     <ClCompile Include="InitTransition.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelTransition.cpp" />
     <ClCompile Include="LoseScreen.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PauseScreen.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SpriteScreen.cpp" />

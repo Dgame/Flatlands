@@ -19,18 +19,30 @@ void StateMachine::setState(State state) {
 	}
 }
 
-void StateMachine::setPreviousState() {
+void StateMachine::resetState() {
+	_stack.top().screen->setup(&_transitions);
+}
+
+void StateMachine::popCurrentState() {
 	if (!_stack.empty()) {
 		_stack.top().screen->leave(&_transitions);
 		_stack.pop();
 	}
+}
 
-	_stack.top().screen->setup(&_transitions);
+void StateMachine::resetPreviousState() {
+	this->popCurrentState();
+	this->resetState();
 }
 
 void StateMachine::execute() {
-	if (!_transitions.isRunning())
-		_stack.top().screen->execute(this);
-	else
+	if (!_transitions.isRunning()) {
+		Screen* screen = _stack.top().screen;
+
+		screen->review(&_transitions);
+
+		if (!_transitions.isRunning())
+			screen->execute(this);
+	} else
 		_transitions.execute();
 }

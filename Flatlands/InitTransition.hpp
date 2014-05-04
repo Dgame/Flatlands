@@ -13,7 +13,7 @@ private:
 
 public:
 	explicit InitTransition(const sgl::Window* wnd, sgl::Sprite* sprite);
-	bool execute();
+	bool execute() override;
 };
 
 #endif

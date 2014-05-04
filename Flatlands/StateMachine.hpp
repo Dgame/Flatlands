@@ -12,6 +12,7 @@ enum class State : short {
 	Won,
 	Lose,
 	Init,
+	Pause,
 	Game
 };
 
@@ -35,7 +36,9 @@ public:
 	}
 
 	void setState(State state);
-	void setPreviousState();
+	void popCurrentState();
+	void resetState();
+	void resetPreviousState();
 
 	const State getCurrentState() const {
 		if (_stack.empty())

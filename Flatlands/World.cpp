@@ -1,8 +1,21 @@
 #include "World.hpp"
+#include "LevelTransition.hpp"
 #include "StateMachine.hpp"
 
 World::World(const sgl::Window& wnd) : Screen(wnd), _force(_gravity) {
-	_level.loadNextLevel(_grounds);
+	
+}
+
+void World::_checkWin(const Ground* g) {
+	if (g != nullptr && g->isTarget()) {
+		const sgl::Vertex& lv = _player.getVertex(_gravity, Direction::Left);
+		const sgl::Vertex& rv = _player.getVertex(_gravity, Direction::Right);
+
+		if (g->targetRect->contains(lv.x, lv.y + 4) && g->targetRect->contains(rv.x, rv.y + 4)) {
+			_gtarget = g;
+			_won = Won::WIP;
+		}
+	}
 }
 
 void World::_abortForce() {
@@ -39,6 +52,8 @@ void World::_handleGroundCollision() {
 				_player.isOnGround = false;
 			} else if (col == Collision::Yes)
 				_abortForce();
+
+			_checkWin(gp);
 		} else if (gp != nullptr) {
 			const sgl::Vertex& gLeft = gp->getVertex(Force::ReverseGravity(_gravity), Direction::Left);
 			_getPlayerOffset()->y = gLeft.y - _player.getVertex(_gravity, Direction::Left).y;
@@ -54,10 +69,15 @@ bool World::_detectGroundCollision(const Ground** gp, Collision* colp) const {
 
 		*colp = col;
 
-		if (col == Collision::Next)
+		if (col != Collision::No) {
 			*gp = g.get();
-		else if (col != Collision::No)
+
+			/// Ausnahmen
+			if (col == Collision::Next)
+				continue;
+
 			return true;
+		}
 	}
 
 	return false;
@@ -70,10 +90,28 @@ bool World::_detectBorderCollision() const {
 }
 
 void World::setup(TransitionManager*) {
-	_player.init(_level.getCurrentLevel().startPosition);
+	_gtarget = nullptr;
+	_won = Won::No;
+
+	if (_level.loadNextLevel(_grounds))
+		_player.init(_level.getCurrentLevel().startPosition);
+	else
+		_won = Won::All;
+}
+
+void World::review(TransitionManager* tm) {
+	if (_won == Won::WIP && _gtarget != nullptr) {
+		_won = Won::Yes;
+		tm->push(new LevelTransition(&_wnd, _gtarget->target.get(), &_player, _gtarget));
+	}
 }
 
 void World::execute(StateMachine* sm) {
+	if (_won == Won::Yes)
+		return sm->resetState();
+	else if (_won == Won::All)
+		return sm->setState(State::Won);
+
 	if (!_player.isOnGround && !_player.isJumping) {
 		_force.executeGravity(&_player, _gravity);
 	} else if (_player.isJumping) {
@@ -100,6 +138,7 @@ void World::execute(StateMachine* sm) {
 
 	_wnd.draw(_player);
 
+	/// Out of window?
 	if (_player.getVertex(_gravity, Direction::Left).y > _wnd.height()) {
 		_force.abort();
 

@@ -18,6 +18,10 @@ public:
 
 	}
 
+	virtual void review(TransitionManager*) {
+
+	}
+
 	virtual void leave(TransitionManager*) {
 
 	}

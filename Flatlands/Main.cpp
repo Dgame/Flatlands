@@ -2,6 +2,7 @@
 #include "InitScreen.hpp"
 #include "LoseScreen.hpp"
 #include "WinScreen.hpp"
+#include "PauseScreen.hpp"
 #include "World.hpp"
 #include "StateMachine.hpp"
 
@@ -12,12 +13,14 @@ int main() {
 	InitScreen init(wnd);
 	LoseScreen lose(wnd);
 	WinScreen won(wnd);
+	PauseScreen pause(wnd);
 	World world(wnd);
 
 	StateMachine sm;
 	sm.registerState(State::Init, &init);
 	sm.registerState(State::Lose, &lose);
 	sm.registerState(State::Won, &won);
+	sm.registerState(State::Pause, &pause);
 	sm.registerState(State::Game, &world);
 	sm.setState(State::Init);
 
@@ -50,8 +53,13 @@ int main() {
 							world.revertGravity(Gravity::Down);
 						else if (event.keyboard.key == sgl::Keyboard::Code::Space)
 							world.getPlayer()->isJumping = true;
-					} else
+						else if (event.keyboard.key == sgl::Keyboard::Code::Pause)
+							sm.setState(State::Pause);
+					} else if (sm.getCurrentState() == State::Pause)
+						sm.popCurrentState();
+					else if (event.keyboard.key == sgl::Keyboard::Code::Space)
 						sm.setState(State::Game);
+
 					break;
 			}
 		}

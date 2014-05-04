@@ -9,6 +9,13 @@
 #include "Force.hpp"
 #include "Level.hpp"
 
+enum class Won {
+	No,
+	WIP,
+	Yes,
+	All
+};
+
 class World : public Screen {
 private:
 	std::vector<std::unique_ptr<Ground>> _grounds;
@@ -18,11 +25,14 @@ private:
 	LevelManager _level;
 
 	Gravity _gravity = Gravity::Down;
+	Won _won = Won::No;
+	const Ground* _gtarget = nullptr;
 
 	sgl::Vector2s* _getPlayerOffset() {
 		return _player.isJumping ? &_force.tmpJump : &_force.tmpGravity;
 	}
 
+	void _checkWin(const Ground* g);
 	void _abortForce();
 	bool _handleBorderCollision();
 	void _handleGroundCollision();
@@ -32,6 +42,7 @@ private:
 public:
 	explicit World(const sgl::Window& wnd);
 	void setup(TransitionManager*) override;
+	void review(TransitionManager* tm) override;
 	void execute(StateMachine* sm) override;
 
 	void revertGravity(Gravity current);

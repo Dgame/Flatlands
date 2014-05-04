@@ -72,6 +72,12 @@
     <ClInclude Include="InitTransition.hpp">
       <Filter>Headerdateien\Transition</Filter>
     </ClInclude>
+    <ClInclude Include="LevelTransition.hpp">
+      <Filter>Headerdateien\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseScreen.hpp">
+      <Filter>Headerdateien\Screen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
@@ -121,6 +127,12 @@
     </ClCompile>
     <ClCompile Include="TransitionManager.cpp">
       <Filter>Quelldateien\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelTransition.cpp">
+      <Filter>Quelldateien\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseScreen.cpp">
+      <Filter>Quelldateien\Screen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

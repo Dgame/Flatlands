@@ -6,9 +6,15 @@
 #include <SGL\Math\Rect.hpp>
 #include "Ground.hpp"
 
+struct LevelGround {
+	sgl::ShortRect rect;
+	bool isTarget;
+};
+
 struct Level {
 	sgl::Vector2s startPosition;
-	std::vector<sgl::ShortRect> rects;
+	sgl::ShortRect target;
+	std::vector<LevelGround> grounds;
 };
 
 class LevelManager final {
