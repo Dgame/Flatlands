@@ -25,6 +25,10 @@ public:
 
 	}
 
+	virtual void reset(TransitionManager*) {
+
+	}
+
 	virtual void review(TransitionManager*) {
 
 	}

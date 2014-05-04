@@ -15,7 +15,7 @@ bool LevelTransition::execute() {
 
 	const float ty = _ground->getVertex(Gravity::Up, Direction::Left).y;
 
-	printf("%f : %d = %d\n", ty, _wnd->height(), ty > _wnd->height());
+	//printf("%f : %d = %d\n", ty, _wnd->height(), ty > _wnd->height());
 	
 	return ty > _wnd->height();
 }

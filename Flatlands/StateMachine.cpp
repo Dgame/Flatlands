@@ -20,7 +20,7 @@ void StateMachine::setState(State state) {
 }
 
 void StateMachine::resetState() {
-	_stack.top().screen->setup(&_transitions);
+	_stack.top().screen->reset(&_transitions);
 }
 
 void StateMachine::popCurrentState() {

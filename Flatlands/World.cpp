@@ -93,6 +93,10 @@ void World::setup(TransitionManager*) {
 		_won = Won::All;
 }
 
+void World::reset(TransitionManager*) {
+	_player.init(_level.getCurrentLevel().startPosition);
+}
+
 void World::review(TransitionManager* tm) {
 	if (_won == Won::WIP && _gtarget != nullptr) {
 		_won = Won::Yes;
