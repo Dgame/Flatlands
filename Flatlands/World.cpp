@@ -49,7 +49,7 @@ void World::_handleGroundCollision() {
 				_abortForce();
 
 			_checkWin(gp);
-		} else if (gp != nullptr) {
+		} else if (col == Collision::Next) {
 			const sgl::Vertex& gLeft = gp->getVertex(Force::ReverseGravity(_gravity), Direction::Left);
 			_getPlayerOffset()->y = gLeft.y - _player.getVertex(_gravity, Direction::Left).y;
 		}
@@ -61,9 +61,9 @@ bool World::_detectGroundCollision(Ground** gp, Collision* colp) const {
 
 	for (const std::unique_ptr<Ground>& g : _grounds) {
 		Collision col = _player.collideWithGround(_gravity, g.get(), offset);
-		*colp = col;
 
 		if (col != Collision::No) {
+			*colp = col;
 			*gp = g.get();
 
 			/// Ausnahmen

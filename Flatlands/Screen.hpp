@@ -17,9 +17,7 @@ public:
 
 	}
 
-	virtual void render() const {
-
-	}
+	virtual void render() const = 0;
 
 	virtual void load(TransitionManager*) {
 

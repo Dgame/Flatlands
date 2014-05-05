@@ -13,9 +13,9 @@ class Ground;
 
 enum class Collision : short {
 	No,
-	Yes,
+	Edge,
 	Next,
-	Edge
+	Yes
 };
 
 class Player final : public Area {

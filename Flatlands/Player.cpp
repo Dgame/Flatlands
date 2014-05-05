@@ -64,11 +64,23 @@ Collision Player::collideWithGround(Gravity g, const Ground* ground, const sgl::
 
 		return Collision::Yes;
 	} else {
-		for (uint16 i = 8; i < offset.y; i += 8) {
-			if (ground->Rect.contains(pLeft.x, pLeft.y + i) || ground->Rect.contains(pRight.x, pRight.y + i))
-				return Collision::Next;
+		switch (g) {
+			case Gravity::Down:
+				for (uint16 i = 8; i < offset.y; i += 8) {
+					if (ground->Rect.contains(pLeft.x, pLeft.y + i) || ground->Rect.contains(pRight.x, pRight.y + i)) {
+						return Collision::Next;
+					}
+				}
+				break;
+			case Gravity::Up:
+				for (int16 i = -8; i > offset.y; i -= 8) {
+					if (ground->Rect.contains(pLeft.x, pLeft.y + i) || ground->Rect.contains(pRight.x, pRight.y + i)) {
+						return Collision::Next;
+					}
+				}
+				break;
 		}
 	}
-	
+
 	return Collision::No;
 }
