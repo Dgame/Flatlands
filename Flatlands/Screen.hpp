@@ -21,11 +21,11 @@ public:
 
 	}
 
-	virtual void setup(TransitionManager*) {
+	virtual void load(TransitionManager*) {
 
 	}
 
-	virtual void reset(TransitionManager*) {
+	virtual void reload(TransitionManager*) {
 
 	}
 

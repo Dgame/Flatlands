@@ -37,9 +37,9 @@ public:
 
 	void setState(State state);
 	void popCurrentState();
-	void setupCurrentState();
-	void resetCurrentState();
-	void resetPreviousState();
+	void loadCurrentState();
+	void reloadCurrentState();
+	void reloadPreviousState();
 
 	const State getCurrentState() const {
 		if (_stack.empty())

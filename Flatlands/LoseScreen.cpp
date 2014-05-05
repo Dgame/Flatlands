@@ -13,6 +13,6 @@ void LoseScreen::execute(StateMachine* sm) {
 		_wnd.draw(_sprite);
 	} else {
 		_counter = 0;
-		sm->resetPreviousState();
+		sm->reloadPreviousState();
 	}
 }

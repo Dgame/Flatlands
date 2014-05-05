@@ -83,7 +83,7 @@ bool World::_detectBorderCollision() const {
 	return v.x <= 0 || v.x >= _wnd.width();
 }
 
-void World::setup(TransitionManager*) {
+void World::load(TransitionManager*) {
 	_gtarget = nullptr;
 	_won = Won::No;
 
@@ -93,7 +93,7 @@ void World::setup(TransitionManager*) {
 		_won = Won::All;
 }
 
-void World::reset(TransitionManager*) {
+void World::reload(TransitionManager*) {
 	_player.init(_level.getCurrentLevel().startPosition);
 }
 
@@ -106,7 +106,7 @@ void World::review(TransitionManager* tm) {
 
 void World::execute(StateMachine* sm) {
 	if (_won == Won::Yes)
-		return sm->setupCurrentState();
+		return sm->loadCurrentState();
 	else if (_won == Won::All)
 		return sm->setState(State::Won);
 

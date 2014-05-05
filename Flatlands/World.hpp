@@ -41,8 +41,8 @@ private:
 
 public:
 	explicit World(const sgl::Window& wnd);
-	void setup(TransitionManager*) override;
-	void reset(TransitionManager*) override;
+	void load(TransitionManager*) override;
+	void reload(TransitionManager*) override;
 	void review(TransitionManager* tm) override;
 	void render() const override;
 	void execute(StateMachine* sm) override;
