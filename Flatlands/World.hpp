@@ -9,7 +9,7 @@
 #include "Force.hpp"
 #include "Level.hpp"
 
-enum class Won {
+enum class Won : short {
 	No,
 	WIP,
 	Yes,
@@ -33,19 +33,18 @@ private:
 	}
 
 	void _checkWin(Ground* g);
-	void _abortForce();
-	bool _handleBorderCollision();
+	bool _detectTopBorderCollision();
 	void _handleGroundCollision();
 	bool _detectGroundCollision(Ground** gp, Collision* colp) const;
-	bool _detectBorderCollision() const;
+	bool _detectSideBorderCollision() const;
 
 public:
 	explicit World(const sgl::Window& wnd);
 	void load(TransitionManager*) override;
 	void reload(TransitionManager*) override;
-	void review(TransitionManager* tm) override;
+	void review(TransitionManager* tm, StateMachine* sm) override;
 	void render() const override;
-	void execute(StateMachine* sm) override;
+	void execute() override;
 
 	void revertGravity(Gravity current);
 

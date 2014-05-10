@@ -11,7 +11,8 @@ private:
 
 public:
 	explicit LoseScreen(const sgl::Window& wnd);
-	void execute(StateMachine* sm) override;
+	void review(TransitionManager*, StateMachine* sm) override;
+	void load(TransitionManager*) override;
 };
 
 #endif

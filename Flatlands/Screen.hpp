@@ -13,7 +13,7 @@ protected:
 public:
 	explicit Screen(const sgl::Window& wnd);
 
-	virtual void execute(StateMachine*) {
+	virtual void execute() {
 
 	}
 
@@ -27,7 +27,7 @@ public:
 
 	}
 
-	virtual void review(TransitionManager*) {
+	virtual void review(TransitionManager*, StateMachine*) {
 
 	}
 

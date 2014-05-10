@@ -3,7 +3,7 @@
 #include "StateMachine.hpp"
 
 World::World(const sgl::Window& wnd) : Screen(wnd), _force(_gravity) {
-	
+
 }
 
 void World::_checkWin(Ground* g) {
@@ -13,13 +13,7 @@ void World::_checkWin(Ground* g) {
 	}
 }
 
-void World::_abortForce() {
-	_force.abort();
-	_player.isOnGround = true;
-	_player.isJumping = false;
-}
-
-bool World::_handleBorderCollision() {
+bool World::_detectTopBorderCollision() {
 	if (_gravity != Gravity::Up || _player.isOnGround)
 		return false;
 
@@ -35,18 +29,19 @@ bool World::_handleBorderCollision() {
 
 void World::_handleGroundCollision() {
 	if (!_player.isOnGround) {
-		if (_handleBorderCollision())
-			return _abortForce();
-
 		Ground* gp = nullptr;
 		Collision col = Collision::No;
 
 		if (_detectGroundCollision(&gp, &col)) {
 			if (col == Collision::Edge && _player.isJumping) {
-				_abortForce();
 				_player.isOnGround = false;
-			} else if (col == Collision::Yes)
-				_abortForce();
+				_player.isJumping = false;
+				_force.reset();
+			} else if (col == Collision::Yes) {
+				_player.isOnGround = true;
+				_player.isJumping = false;
+				_force.reset();
+			}
 
 			_checkWin(gp);
 		} else if (col == Collision::Next) {
@@ -77,13 +72,17 @@ bool World::_detectGroundCollision(Ground** gp, Collision* colp) const {
 	return false;
 }
 
-bool World::_detectBorderCollision() const {
+bool World::_detectSideBorderCollision() const {
 	const sgl::Vertex& v = _player.getVertex(_gravity, _player.getDir());
 
 	return v.x <= 0 || v.x >= _wnd.width();
 }
 
 void World::load(TransitionManager*) {
+	_player.isOnGround = false;
+	_player.isJumping = false;
+	_force.reset();
+
 	_gtarget = nullptr;
 	_won = Won::No;
 
@@ -94,32 +93,37 @@ void World::load(TransitionManager*) {
 }
 
 void World::reload(TransitionManager*) {
+	_player.isOnGround = false;
+	_player.isJumping = false;
+	_force.reset();
+
 	_player.init(_level.getCurrentLevel().startPosition);
 }
 
-void World::review(TransitionManager* tm) {
-	if (_won == Won::WIP && _gtarget != nullptr) {
+void World::review(TransitionManager* tm, StateMachine* sm) {
+	if (_won == Won::Yes)
+		sm->loadCurrentState();
+	else if (_won == Won::All)
+		sm->setState(State::Won);
+	else if (_won == Won::WIP && _gtarget != nullptr) {
 		_won = Won::Yes;
 		tm->push(new LevelTransition(&_wnd, &_player, _gtarget));
+	} else if (_player.getVertex(_gravity, Direction::Left).y > _wnd.height()) { /// Out of window?
+		sm->setState(State::Lose);
 	}
 }
 
-void World::execute(StateMachine* sm) {
-	if (_won == Won::Yes)
-		return sm->loadCurrentState();
-	else if (_won == Won::All)
-		return sm->setState(State::Won);
-
+void World::execute() {
 	if (_player.isJumping) {
 		_force.executeJump(&_player, _gravity);
 		_player.isOnGround = false;
 
-		if (_detectBorderCollision())
+		if (_detectSideBorderCollision())
 			_force.tmpJump.x = 0;
 	} else if (!_player.isOnGround) {
 		_force.executeGravity(&_player, _gravity);
 	} else if (_player.isRolling()) {
-		if (_detectBorderCollision())
+		if (_detectSideBorderCollision())
 			_player.abortRoll();
 		else
 			_player.executeRoll(_gravity);
@@ -127,14 +131,13 @@ void World::execute(StateMachine* sm) {
 		_player.isOnGround = false;
 	}
 
-	if (!_player.isOnGround)
-		_handleGroundCollision();
-
-	/// Out of window?
-	if (_player.getVertex(_gravity, Direction::Left).y > _wnd.height()) {
-		_force.abort();
-
-		sm->setState(State::Lose);
+	if (!_player.isOnGround) {
+		if (_detectTopBorderCollision()) {
+			_player.isJumping = false;
+			_player.isOnGround = true;
+			_force.reset();
+		} else
+			_handleGroundCollision();
 	}
 }
 

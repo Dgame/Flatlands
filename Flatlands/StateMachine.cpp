@@ -44,10 +44,10 @@ void StateMachine::execute() {
 	Screen* screen = _stack.top().screen;
 
 	if (!_transitions.isRunning())
-		screen->review(&_transitions);
+		screen->review(&_transitions, this);
 
 	if (!_transitions.isRunning())
-		screen->execute(this);
+		screen->execute();
 	else
 		_transitions.execute();
 

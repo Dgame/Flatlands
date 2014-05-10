@@ -21,7 +21,7 @@ void Force::executeGravity(Player* player, Gravity g) {
 
 	_gravityCount++;
 
-	player->move(this->tmpGravity);
+	player->move(static_cast<sgl::Vector2f>(this->tmpGravity));
 	this->tmpGravity += GravityForce[g];
 }
 
@@ -34,7 +34,7 @@ void Force::executeJump(Player* player, Gravity g) {
 
 	_jumpCount++;
 
-	player->move(this->tmpJump);
+	player->move(static_cast<sgl::Vector2f>(this->tmpJump));
 	this->tmpJump += GravityForce[g];
 }
 

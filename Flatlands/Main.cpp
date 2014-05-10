@@ -8,6 +8,7 @@
 
 int main() {
 	sgl::Window wnd(600, 500, "Flatland");
+	wnd.setVerticalSync(sgl::Window::Sync::Disable);
 	wnd.framerateLimit = 10;
 
 	InitScreen init(wnd);

@@ -25,7 +25,7 @@ public:
 
 	explicit Force(Gravity g);
 
-	void abort() {
+	void reset() {
 		_jumpCount = -1;
 		_gravityCount = -1;
 	}
