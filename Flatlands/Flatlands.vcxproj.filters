@@ -78,6 +78,12 @@
     <ClInclude Include="PauseScreen.hpp">
       <Filter>Headerdateien\Screen</Filter>
     </ClInclude>
+    <ClInclude Include="IntroScreen.hpp">
+      <Filter>Headerdateien\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeTransition.hpp">
+      <Filter>Headerdateien\Transition</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StateMachine.cpp">
@@ -133,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="PauseScreen.cpp">
       <Filter>Quelldateien\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScreen.cpp">
+      <Filter>Quelldateien\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeTransition.cpp">
+      <Filter>Quelldateien\Transition</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

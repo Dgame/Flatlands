@@ -1,9 +1,9 @@
 #include "TransitionManager.hpp"
 
 void TransitionManager::execute() {
-	if (_stack.empty())
+	if (_list.empty())
 		return;
 
-	if (_stack.top()->execute())
-		_stack.pop();
+	if (!_list.front()->execute())
+		_list.pop_front();
 }

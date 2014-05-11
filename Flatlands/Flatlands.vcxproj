@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\C\SGL\include;E:\C\SDL2_image-2.0.0\include;E:\C\SDL2_mixer-2.0.0\include;E:\C\SDL2_ttf-2.0.12\include;E:\C\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\C\SGL\lib\Debug;E:\C\SDL2_image-2.0.0\lib\x86;E:\C\SDL2_mixer-2.0.0\lib\x86;E:\C\SDL2_ttf-2.0.12\lib\x86;E:\C\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\C\SGL\include;E:\C\SDL2_image-2.0.0\include;E:\C\SDL2_mixer-2.0.0\include;E:\C\SDL2_ttf-2.0.12\include;E:\C\SDL2-2.0.3\include;E:\C\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\C\SGL\lib\Debug;E:\C\SDL2_image-2.0.0\lib\x86;E:\C\SDL2_mixer-2.0.0\lib\x86;E:\C\SDL2_ttf-2.0.12\lib\x86;E:\C\SDL2-2.0.3\lib\x86;E:\C\GLEW\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -62,7 +62,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;opengl32.lib;SGL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;opengl32.lib;SGL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,10 +85,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Area.hpp" />
+    <ClInclude Include="FadeTransition.hpp" />
     <ClInclude Include="Force.hpp" />
     <ClInclude Include="Ground.hpp" />
     <ClInclude Include="InitScreen.hpp" />
     <ClInclude Include="InitTransition.hpp" />
+    <ClInclude Include="IntroScreen.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LevelTransition.hpp" />
     <ClInclude Include="LoseScreen.hpp" />
@@ -104,10 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Area.cpp" />
+    <ClCompile Include="FadeTransition.cpp" />
     <ClCompile Include="Force.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="InitScreen.cpp" />
     <ClCompile Include="InitTransition.cpp" />
+    <ClCompile Include="IntroScreen.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelTransition.cpp" />
     <ClCompile Include="LoseScreen.cpp" />

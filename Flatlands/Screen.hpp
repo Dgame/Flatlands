@@ -2,6 +2,7 @@
 #define SCREEN_HPP
 
 #include <SGL\Window\Window.hpp>
+#include <SGL\Window\Event.hpp>
 
 class TransitionManager;
 class StateMachine;
@@ -13,11 +14,11 @@ protected:
 public:
 	explicit Screen(const sgl::Window& wnd);
 
-	virtual void execute() {
+	virtual void execute(const sgl::Event&) {
 
 	}
 
-	virtual void render() const = 0;
+	virtual void render(bool myTurn) const = 0;
 
 	virtual void load(TransitionManager*) {
 

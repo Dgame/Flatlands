@@ -1,5 +1,6 @@
 #include <SGL\Window\Event.hpp>
 #include "InitScreen.hpp"
+#include "IntroScreen.hpp"
 #include "LoseScreen.hpp"
 #include "WinScreen.hpp"
 #include "PauseScreen.hpp"
@@ -12,6 +13,7 @@ int main() {
 	wnd.framerateLimit = 10;
 
 	InitScreen init(wnd);
+	IntroScreen intro(wnd);
 	LoseScreen lose(wnd);
 	WinScreen won(wnd);
 	PauseScreen pause(wnd);
@@ -19,6 +21,7 @@ int main() {
 
 	StateMachine sm;
 	sm.registerState(State::Init, &init);
+	sm.registerState(State::Intro, &intro);
 	sm.registerState(State::Lose, &lose);
 	sm.registerState(State::Won, &won);
 	sm.registerState(State::Pause, &pause);
@@ -58,14 +61,18 @@ int main() {
 							sm.setState(State::Pause);
 					} else if (sm.getCurrentState() == State::Pause)
 						sm.popCurrentState();
-					else if (event.keyboard.key == sgl::Keyboard::Code::Space)
-						sm.setState(State::Game);
+					else if (event.keyboard.key == sgl::Keyboard::Code::Space) {
+						if (sm.getCurrentState() == State::Intro)
+							sm.setState(State::Game);
+						else
+							sm.setState(State::Intro);
+					}
 
 					break;
 			}
 		}
 
-		sm.execute();
+		sm.execute(event);
 
 		wnd.display();
 	}

@@ -43,8 +43,8 @@ public:
 	void load(TransitionManager*) override;
 	void reload(TransitionManager*) override;
 	void review(TransitionManager* tm, StateMachine* sm) override;
-	void render() const override;
-	void execute() override;
+	void render(bool) const override;
+	void execute(const sgl::Event&) override;
 
 	void revertGravity(Gravity current);
 

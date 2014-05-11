@@ -113,7 +113,7 @@ void World::review(TransitionManager* tm, StateMachine* sm) {
 	}
 }
 
-void World::execute() {
+void World::execute(const sgl::Event&) {
 	if (_player.isJumping) {
 		_force.executeJump(&_player, _gravity);
 		_player.isOnGround = false;
@@ -141,7 +141,7 @@ void World::execute() {
 	}
 }
 
-void World::render() const {
+void World::render(bool) const {
 	for (const std::unique_ptr<Ground>& g : _grounds) {
 		_wnd.draw(*g);
 	}

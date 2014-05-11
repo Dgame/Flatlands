@@ -40,16 +40,16 @@ void StateMachine::reloadPreviousState() {
 	this->reloadCurrentState();
 }
 
-void StateMachine::execute() {
+void StateMachine::execute(const sgl::Event& event) {
 	Screen* screen = _stack.top().screen;
 
 	if (!_transitions.isRunning())
 		screen->review(&_transitions, this);
 
 	if (!_transitions.isRunning())
-		screen->execute();
+		screen->execute(event);
 	else
 		_transitions.execute();
 
-	screen->render();
+	screen->render(!_transitions.isRunning());
 }

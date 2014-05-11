@@ -17,5 +17,5 @@ bool LevelTransition::execute() {
 
 	//printf("%f : %d = %d\n", ty, _wnd->height(), ty > _wnd->height());
 	
-	return ty > _wnd->height();
+	return ty <= _wnd->height();
 }

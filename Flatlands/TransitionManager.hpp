@@ -1,21 +1,21 @@
 #ifndef TRANSITION_MANAGER_HPP
 #define TRANSITION_MANAGER_HPP
 
-#include <stack>
+#include <list>
 #include <memory>
 #include "Transition.hpp"
 
 class TransitionManager final {
 private:
-	std::stack<std::unique_ptr<Transition>> _stack;
+	std::list<std::unique_ptr<Transition>> _list;
 
 public:
 	bool isRunning() const {
-		return !_stack.empty();
+		return !_list.empty();
 	}
 
 	void push(Transition* tcp) {
-		_stack.push(std::unique_ptr<Transition>(tcp));
+		_list.push_back(std::unique_ptr<Transition>(tcp));
 	}
 
 	void execute();

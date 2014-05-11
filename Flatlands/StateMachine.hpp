@@ -3,6 +3,7 @@
 
 #include <map>
 #include <stack>
+#include <SGL\Window\Event.hpp>
 #include "TransitionManager.hpp"
 
 class Screen;
@@ -12,6 +13,7 @@ enum class State : short {
 	Won,
 	Lose,
 	Init,
+	Intro,
 	Pause,
 	Game
 };
@@ -48,7 +50,7 @@ public:
 		return _stack.top().state;
 	}
 
-	void execute();
+	void execute(const sgl::Event& event);
 };
 
 #endif
