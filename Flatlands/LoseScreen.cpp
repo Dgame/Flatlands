@@ -2,7 +2,7 @@
 #include "StateMachine.hpp"
 
 LoseScreen::LoseScreen(const sgl::Window& wnd) : SpriteScreen(wnd, "Images/lose.png") {
-	_sprite.position.set(0, (wnd.height() / 2) - _tex.height());
+	_sprite.position.set(0, (wnd.height() / 2) - _img.height());
 }
 
 void LoseScreen::review(TransitionManager*, StateMachine* sm) {

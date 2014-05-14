@@ -2,11 +2,12 @@
 #define SPRITE_SCREEN
 
 #include <SGL\Graphic\Sprite.hpp>
+#include <SGL\Graphic\Image.hpp>
 #include "Screen.hpp"
 
 class SpriteScreen : public Screen {
 protected:
-	sgl::Texture _tex;
+	sgl::Image _img;
 	sgl::Sprite _sprite;
 
 public:

@@ -6,15 +6,14 @@ const std::vector<std::string> IntroScreen::Pages = {
 };
 
 IntroScreen::IntroScreen(const sgl::Window& wnd) : Screen(wnd) {
-	
+	_curSprite.setTexture(_curImg);
+	_oldSprite.setTexture(_oldImg);
 }
 
 void IntroScreen::load(TransitionManager* tm) {
 	printf("Load Page: %s\n", Pages[_pageNr].c_str());
 
-	sgl::Surface s = sgl::Surface(Pages[_pageNr]);
-	_curTex.loadFrom(s);
-	_curSprite.setTexture(_curTex);
+	_curImg.loadFromFile(Pages[_pageNr]);
 	// Fade in
 	tm->push(new FadeTransition(&_wnd, &_curSprite, false));
 
@@ -26,10 +25,7 @@ void IntroScreen::reload(TransitionManager* tm) {
 
 	printf("Reload Page: %s\n", Pages[_pageNr].c_str());
 
-	sgl::Surface s = sgl::Surface(Pages[_pageNr]);
-	_curTex.loadFrom(s);
-	_curSprite.setTexture(_curTex);
-
+	_curImg.loadFromFile(Pages[_pageNr]);
 	// Fade in
 	tm->push(new FadeTransition(&_wnd, &_curSprite, false));
 
@@ -46,9 +42,7 @@ void IntroScreen::review(TransitionManager* tm, StateMachine* sm) {
 		if (_pageNr >= Pages.size() - 1)
 			sm->setState(State::Game);
 		else {
-			std::unique_ptr<uint32> pixel = _curTex.pixels();
-			_oldTex.loadFromMemory(pixel.get(), _curTex.width(), _curTex.height(), _curTex.format()); // TODO
-			_oldSprite.setTexture(_oldTex);
+			_oldImg = _curImg;
 			// Fade out
 			tm->push(new FadeTransition(&_wnd, &_oldSprite, true));
 			sm->reloadCurrentState();
